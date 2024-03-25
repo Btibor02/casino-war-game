@@ -1,3 +1,5 @@
+"""GameMechanics -> Scores."""
+
 import pickle
 import os
 import sys
@@ -9,7 +11,7 @@ sys.path.append(".")
 
 class Scores:
     """
-    Keeps track of all the players
+    Keep track of all the players.
 
     The player with the highest score is placed first,
     followed by the one with the second highest score, and so on
@@ -18,12 +20,12 @@ class Scores:
     """
 
     def __init__(self):
-        """Initialize the Scores object with an empty leaderboard"""
+        """Initialize the Scores object with an empty leaderboard."""
         # stores player objects
         self.leaderboard = []
 
     def __str__(self):
-        """returns a string containg the name and the score of each player"""
+        """Return a string containg the name and the score of each player."""
         # use Player's __str__ method
         return "\n".join(
             [
@@ -33,13 +35,16 @@ class Scores:
         )
 
     def __eq__(self, other):
-        """returns True if the other class has the same leaderboard, returns False otherwise"""
+        """Return True if the other class has the same leaderboard.
+
+        Returns False otherwise.
+        """
         if isinstance(other, Scores):
             return other.leaderboard == self.leaderboard
         return False
 
     def update(self):
-        """Get previous scores saved in GameMechanics/scores.bin"""
+        """Get previous scores saved in GameMechanics/scores.bin."""
         file_path = "GameMechanics/scores.bin"
 
         # check if file bin file exists
@@ -49,12 +54,12 @@ class Scores:
                 self.leaderboard = pickle.load(previous_scores)
 
     def save(self):
-        """Save scores to GameMechanics/scores.bin"""
+        """Save scores to GameMechanics/scores.bin."""
         with open("GameMechanics/scores.bin", "wb") as scores_file:
             pickle.dump(self.leaderboard, scores_file)
 
     def add_player(self, player: Player):
-        """add new player, update the player if he already exists"""
+        """Add new player, update the player if he already exists."""
         # try to update the balance of the player
         try:
             self.update_player_balance(player, player.get_balance())
@@ -64,7 +69,10 @@ class Scores:
             self.__insert_score_ordered(player)
 
     def update_player_balance(self, player: Player, score: int):
-        """updates the score of the player object and places him accordingly in the list"""
+        """Update the score of the player object.
+
+        And place him accordingly in the list.
+        """
         # search for player in the leaderboard
         for p in self.leaderboard:
             if p == player:
@@ -82,12 +90,16 @@ class Scores:
         raise ValueError("Player name does noy exist")
 
     def __insert_score_ordered(self, player: Player):
-        """insert the player in the leaderboard in the right order (from the largest balance to the lowest one)"""
+        """Insert the player in the leaderboard in the right order.
+
+        (from the largest balance to the lowest one).
+        """
         player_score = player.get_balance()
 
         index = 0
 
-        # increment the index if the score inside of the leaderboard is greater that the player_score
+        # increment the index if the score inside of the leaderboard
+        # is greater that the player_score
         while (
             index < len(self.leaderboard)
             and player_score <= self.leaderboard[index].get_balance()
@@ -98,5 +110,5 @@ class Scores:
         self.leaderboard.insert(index, player)
 
     def get_names(self):
-        """returns list of all names"""
+        """Return list of all names."""
         return [p.get_name() for p in self.leaderboard]

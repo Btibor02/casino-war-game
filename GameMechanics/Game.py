@@ -193,8 +193,8 @@ class Game:
                 return results
             else:
                 print(
-                    "Not enough cards left in deck to initiate war!" +
-                    " Bets refunded"
+                    "Not enough cards left in deck to initiate war!"
+                    + " Bets refunded"
                 )
                 time.sleep(5)
                 indicator = "Draw"
@@ -226,8 +226,8 @@ class Game:
             )
             if not hasEnoughBalance:
                 print(
-                    "You don't have enough balance to go to war!" +
-                    " You must surrend!"
+                    "You don't have enough balance to go to war!"
+                    + " You must surrend!"
                 )
                 time.sleep(5)
                 choice = "SURREND"

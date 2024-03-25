@@ -1,3 +1,7 @@
+# flake8: noqa
+
+"""GameMechanics -> UI."""
+
 import os
 import sys
 
@@ -6,13 +10,12 @@ from GameMechanics import Scores as scoresClass
 
 sys.path.append(".")
 
-"""Prints out Menu uis"""
-
 
 class MenuUI:
-    """Prints out logo"""
+    """Print out Menu uis."""
 
     def logo():
+        """Print out logo."""
         os.system("cls||clear")
         print(
             """.------..------..------..------..------..------.     .------..------..------.
@@ -23,9 +26,8 @@ class MenuUI:
 `------'`------'`------'`------'`------'`------'  '-'`------'`------'`------'"""
         )
 
-    """Prints out main menu"""
-
     def mainMenu():
+        """Print out main menu."""
         MenuUI.logo()
         print(f'{"Main menu":.^77}')
         print(f'\n{"1. New Game":^77}')
@@ -33,61 +35,61 @@ class MenuUI:
         print(f'{"3. Rules":^74}')
         print(f'{"4. Exit":^73}')
 
-    """Prints out player name selector"""
-
     def playerNameSelector():
+        """Print out player name selector."""
         MenuUI.logo()
         print(f'{"Player name selector":.^77}')
         playerName = input(f'\n{"Enter your name: "}')
         return playerName
 
-    """Prints out difficulty selector"""
-
     def difficultySelector():
+        """Print out difficulty selector."""
         MenuUI.logo()
         print(f'{"Difficulty selector":.^77}')
         print(f'\n{"1. Easy":^77}')
         print(f'{"2. Normal":^80}')
 
-    """Prints out the rules for the game"""
-
     def rules():
+        """Print out the rules for the game."""
         MenuUI.logo()
         print(f'{"Rules":.^77}')
         print("\nEach player starts with a balance of a 1000.")
         print("One card each is dealt to the players.")
         print("Card ranks (High -> Low): A K Q J 10 9 8 7 6 5 4 3 2")
         print(
-            "Whoever has the higher card win the wager they bet." + 
-            " One with a smaller card \nloses their bet."
+            "Whoever has the higher card win the wager they bet."
+            + " One with a smaller card \nloses their bet."
         )
         print(
-            "\nA tie occurs when the players each have cards of the same rank." + 
-            " In a tie the \nplayers have two options: \n1. A player can surrender," + 
-            " in which case the player loses half the bet.\n2. A player can go to war," + 
-            " in which case the player must double their stake."
+            "\nA tie occurs when the players each have cards of the same rank."
+            + " In a tie the \nplayers have two options: \n1. A player can " 
+            + " surrender, in which case the player loses half the bet.\n2."
+            + " A player can go to war,"
+            + " in which case the player must double their stake."
         )
         print(
-            "\nIf one of the players chose to go to war, but the other surrends, the" + 
-            " \nplayer who chose to go to war gets 1.5x they bet back."
+            "\nIf one of the players chose to go to war, but the other"
+            + " surrends, the \nplayer who chose to go to war gets "
+            + " 1.5x they bet back."
         )
         print(
-            "In a war, the computer burns three cards before dealing each of them" + 
-            " \nan additional card and the game continues as normal."
+            "In a war, the computer burns three cards before dealing each of them"
+            + " \nan additional card and the game continues as normal."
         )
         print(
-            "\nA player wins if the other player runs out of their balance," + 
-            " \nor can leave at anytime by writing '0' in the bet window. "
+            "\nA player wins if the other player runs out of their balance,"
+            + " \nor can leave at anytime by writing '0' in the bet window. "
         )
 
 
-"""Prints out Table uis"""
+"""Print out Table uis."""
 
 
 class TableUI:
-    """Prints out the right card symbol"""
+    """Table Uis."""
 
     def cardSymbol(hand):
+        """Print out the right card symbol."""
         match hand:
             case "Spades":
                 print(f'{"*"} {"| :/⧹: |":^73} {"*"}')
@@ -105,14 +107,13 @@ class TableUI:
                 print(f'{"*"} {"| (⧹/) |":^73} {"*"}')
                 print(f'{"*"} {"| :⧹/: |":^73} {"*"}')
 
-    """Prints out table"""
-
     def table(playerName, playerHand, aiHand, playerBalance, aiBalance):
+        """Print out table."""
         os.system("cls||clear")
         # Table Header
         print(f'{"":*^77}')
 
-        """Prints out AI's card"""
+        """Print out AI's card."""
         print(f'{"*"} {"AI’s balance: %d" % (aiBalance) :^73} {"*"}')
         print(f'{"*"} {"AI’s hand: %s" % (aiHand[0]) :^73} {"*"}')
         print(f'{"*"} {".------." :^73} {"*"}')
@@ -124,36 +125,43 @@ class TableUI:
         for x in range(3):
             print(f'{"*"} {"":^73} {"*"}')
 
-        """Prints out Player's card"""
+        """Print out Player's card."""
         print(f'{"*"} {".------.":^73} {"*"}')
-        print(f'{"*"} {"|%s.--. |" % (playerHand[0].split(" ")[0][0]) :^73} {"*"}')
+        print(
+            f'{"*"} {"|%s.--. |" % (playerHand[0].split(" ")[0][0]) :^73} {"*"}'
+        )
         TableUI.cardSymbol(playerHand[0].split(" ")[2])
-        print(f'{"*"} {"| `--’%s|" % (playerHand[0].split(" ")[0][0]) :^73} {"*"}')
+        print(
+            f'{"*"} {"| `--’%s|" % (playerHand[0].split(" ")[0][0]) :^73} {"*"}'
+        )
         print(f'{"*"} {"`------’":^73} {"*"}')
-        print(f'{"*"} {"%s’s hand: %s" % (playerName, playerHand[0]) :^73} {"*"}')
-        print(f'{"*"} {"%s’s balance: %d" % (playerName, playerBalance) :^73} {"*"}')
+        print(
+            f'{"*"} {"%s’s hand: %s" % (playerName, playerHand[0]) :^73} {"*"}'
+        )
+        print(
+            f'{"*"} {"%s’s balance: %d" % (playerName, playerBalance) :^73} {"*"}'
+        )
         print(f'{"":*^77}')
 
 
-"""Prints out Bet uis"""
+"""Print out Bet uis."""
 
 
 class BetUI:
-    """Asks the player how much they want to bet"""
+    """Bet UIs."""
 
     def bet(balance):
+        """Ask the player how much they want to bet."""
         betSelf = betClass.Bet
         hasEnoughBalance = False
 
-        """Checks if the input is a number"""
+        """Check if the input is a number."""
         while not hasEnoughBalance:
             try:
-                """Checks if the user has enough balance for the bet"""
+                """Check if the user has enough balance for the bet."""
 
                 userInput = input(
-                    f'\n{"How much would you like to bet?" +
-                         " (0 - Quit)" + 
-                         " (Current ammount: %d):  " % balance}'
+                    f'\n{"How much would you like to bet? (0 - Quit) (Current ammount: %d):  " % balance}'
                 )
 
                 # look if user typed "cheat"
@@ -162,7 +170,9 @@ class BetUI:
 
                 betAmount = int(userInput)
 
-                hasEnoughBalance = betSelf.enoughBalance(betSelf, betAmount, balance)
+                hasEnoughBalance = betSelf.enoughBalance(
+                    betSelf, betAmount, balance
+                )
                 if not hasEnoughBalance:
                     print("You don't have enough balance to make that bet!")
             except ValueError:
@@ -171,17 +181,18 @@ class BetUI:
         return betAmount
 
     def cheat():
-        """Returns enormous sum"""
+        """Return enormous sum."""
         return 100000
 
-    """Asks the player is they want to go to war or not"""
-
     def war():
+        """Ask the player is they want to go to war or not."""
         choice = ""
 
-        """Checks if the input is equal to 'war' or to 'surrend'"""
+        """Check if the input is equal to 'war' or to 'surrend'."""
         while choice not in ("WAR", "SURREND"):
-            choice = input("Would you like to go to war or surrend? (War/Surrend) ")
+            choice = input(
+                "Would you like to go to war or surrend? (War/Surrend) "
+            )
             choice = choice.upper()
 
         return choice
@@ -191,7 +202,10 @@ class BetUI:
 
 
 class LeaderboardUI:
+    """Leaderboard UIs."""
+
     def leaderboard():
+        """Print out leaderboard."""
         MenuUI.logo()
         print(f'{"Leaderboard":.^77}')
 
@@ -201,68 +215,68 @@ class LeaderboardUI:
         print(scores)
 
 
-"""Prints out EndGame uis"""
+"""Print out EndGame uis."""
 
 
 class EndGameUI:
-    """Happens when player has zero or less balance"""
 
     def zeroBalance():
+        """Happen when player has zero or less balance."""
         MenuUI.logo()
         print(f'{"You lost all your money. Better luck next time!":.^77}')
 
-    """Happens when the AI has zero or less balance"""
-
     def aiZeroBalance():
+        """Happen when the AI has zero or less balance."""
         MenuUI.logo()
         print(f'{"Congratulation! The AI lost all its money.":.^77}')
         print(f'{"+1000 points have been added to your score": ^77}')
 
-        # score updated in Game class
-
-    """Happens when there is no more card left in the deck"""
-
     def noCardsLeft(playerBalance):
+        """Happen when there is no more card left in the deck."""
         MenuUI.logo()
         print(f'{"Game ended! No more cards left in the deck":.^77}')
         print(f'{"Your final balance: %d " % (playerBalance) :.^77}')
 
 
-"""Prints out MidGame uis"""
+"""Print out MidGame uis."""
 
 
 class midGameVisuals:
-    """Prints out AI's decision"""
 
     def aiAction(aiDecision):
+        """Print out AI's decision."""
         notSurrend = "Ai decided not to surrend"
         surrend = "Ai decided to surrend"
         print(surrend if aiDecision else notSurrend)
 
-    """Prints out whether the player won or lost"""
-
     def winIndecator(indicator):
+        """Print out whether the player won or lost."""
         win = "You won this round!"
         lose = "You lost this round!"
         print(win if indicator else lose)
 
 
-"""Handles Menu"""
+"""Handle Menu"""
 
 
 class Menu:
     def callMenu():
+        """Call menu."""
         menu = MenuUI
         keepMenu = True
 
-        """Checks if input is a number"""
+        """Check if input is a number."""
         while keepMenu:
             menu.mainMenu()
             try:
                 choiceMenu = int(input("\n>>>>>> "))
 
                 menuResults = Menu.options(choiceMenu)
-                if menuResults in ("Leaderboard works!", "Rules works!", "Wrong char"):
+                if menuResults in (
+                    "Leaderboard works!",
+                    "Rules works!",
+                    "Wrong char",
+                ):
                     keepMenu = True
                 elif menuResults == "Quit":
                     keepMenu = False
@@ -274,15 +288,16 @@ class Menu:
                 keepMenu = True
 
     def options(choice):
+        """Option."""
         menu = MenuUI
         leaderboard = LeaderboardUI
 
         if choice == 1:
-            """Game starts"""
+            """Game start."""
             playerName = menu.playerNameSelector()
             keepDiffMenu = True
             while keepDiffMenu:
-                """Checks if the input is a number"""
+                """Check if the input is a number."""
                 menu.difficultySelector()
                 try:
                     difficultyChoice = int(input("\n>>>>>> "))
@@ -297,7 +312,7 @@ class Menu:
                     keepDiffMenu = True
 
         elif choice == 2:
-            """Leaderboard shown"""
+            """Leaderboard shown."""
             keepLeaderboard = True
             while keepLeaderboard:
                 leaderboard.leaderboard()
