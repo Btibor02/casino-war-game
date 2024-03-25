@@ -1,8 +1,8 @@
 import random
 
+
 class Card(object):
     def __init__(self):
-
         """Initialize Card object"""
         self.cards = {
             "2": 2,
@@ -17,14 +17,13 @@ class Card(object):
             "Jack": 11,
             "Queen": 12,
             "King": 13,
-            "Ace": 14
+            "Ace": 14,
         }
         self.suits = ["Diamonds", "Hearts", "Clubs", "Spades"]
 
     # ? Do we need these?
     def getCards(self):
         return self.cards
-    
+
     def getSuits(self):
         return self.suits
-        

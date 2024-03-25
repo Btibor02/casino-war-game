@@ -1,4 +1,5 @@
 import sys
+
 sys.path.append(".")
 import unittest
 import unittest.mock
@@ -6,7 +7,6 @@ from unittest.mock import patch, call
 from GameMechanics import Game as gameClass
 from CardMechanics import Card, Deck
 from Players import Intelligence as intellClass
-
 
 
 """Guide TestGame:
@@ -37,9 +37,8 @@ class testRegularGame(unittest.TestCase):
 
         self.assertEqual(testVar, returnedVar)
 
-
-
     """aiHasEnoughBalance Tests"""
+
     def testAiHasEnoughBalanceYes(self):
         betAmount = 50
         aiBalance = 100
@@ -56,8 +55,8 @@ class testRegularGame(unittest.TestCase):
         returnedVar = gameClass.Game.aiHasEnoughBalance(betAmount, aiBalance)
         self.assertEqual(testVar, returnedVar)
 
-    
     """whosCardIsHigher Tests"""
+
     def testWhosCardIsHigherPlayerWins(self):
         playerName = "Test"
         playerHand = ("9 of Diamonds", 9)
@@ -69,7 +68,17 @@ class testRegularGame(unittest.TestCase):
         aiDecision = 3
 
         testVar = (720, 350, True, 3)
-        returnedVar = gameClass.Game.whosCardIsHigher(playerName, playerHand, aiHand, playerBalance, aiBalance, betAmount, difficulty, testRegularGame.ai, aiDecision)
+        returnedVar = gameClass.Game.whosCardIsHigher(
+            playerName,
+            playerHand,
+            aiHand,
+            playerBalance,
+            aiBalance,
+            betAmount,
+            difficulty,
+            testRegularGame.ai,
+            aiDecision,
+        )
 
         self.assertEqual(testVar, returnedVar)
 
@@ -84,10 +93,20 @@ class testRegularGame(unittest.TestCase):
         aiDecision = 3
 
         testVar = (620, 450, False, 3)
-        returnedVar = gameClass.Game.whosCardIsHigher(playerName, playerHand, aiHand, playerBalance, aiBalance, betAmount, difficulty, testRegularGame.ai, aiDecision)
+        returnedVar = gameClass.Game.whosCardIsHigher(
+            playerName,
+            playerHand,
+            aiHand,
+            playerBalance,
+            aiBalance,
+            betAmount,
+            difficulty,
+            testRegularGame.ai,
+            aiDecision,
+        )
 
         self.assertEqual(testVar, returnedVar)
-    
+
     def testWhosCardIsHigherTie(self):
         playerName = "Test"
         playerHand = ("2 of Diamonds", 2)
@@ -99,12 +118,22 @@ class testRegularGame(unittest.TestCase):
         aiDecision = 4
 
         testVar = (745.0, 375.0, "Draw", 1)
-        returnedVar = gameClass.Game.whosCardIsHigher(playerName, playerHand, aiHand, playerBalance, aiBalance, betAmount, difficulty, testRegularGame.ai, aiDecision)
+        returnedVar = gameClass.Game.whosCardIsHigher(
+            playerName,
+            playerHand,
+            aiHand,
+            playerBalance,
+            aiBalance,
+            betAmount,
+            difficulty,
+            testRegularGame.ai,
+            aiDecision,
+        )
 
         self.assertEqual(testVar, returnedVar)
-    
 
     """tie Tests"""
+
     def testTiePlayerNotEnoughBalance(self):
         playerName = "Test"
         playerBalance = 40
@@ -114,7 +143,15 @@ class testRegularGame(unittest.TestCase):
         aiDecision = 4
 
         testVar = (15.0, 375.0, "Draw", 1)
-        returnedVar = gameClass.Game.tie(playerName, betAmount, playerBalance, aiBalance, difficulty, testRegularGame.ai, aiDecision)
+        returnedVar = gameClass.Game.tie(
+            playerName,
+            betAmount,
+            playerBalance,
+            aiBalance,
+            difficulty,
+            testRegularGame.ai,
+            aiDecision,
+        )
         self.assertEqual(testVar, returnedVar)
 
     def testTieAiNotEnoughBalance(self):
@@ -126,7 +163,15 @@ class testRegularGame(unittest.TestCase):
         aiDecision = 4
 
         testVar = (75.0, 20.0, "Draw", 1)
-        returnedVar = gameClass.Game.tie(playerName, betAmount, playerBalance, aiBalance, difficulty, testRegularGame.ai, aiDecision)
+        returnedVar = gameClass.Game.tie(
+            playerName,
+            betAmount,
+            playerBalance,
+            aiBalance,
+            difficulty,
+            testRegularGame.ai,
+            aiDecision,
+        )
         self.assertEqual(testVar, returnedVar)
 
     def testTieWar(self):
@@ -138,7 +183,15 @@ class testRegularGame(unittest.TestCase):
         aiDecision = 7
 
         testVar = (200, 300, True, 0)
-        returnedVar = gameClass.Game.tie(playerName, betAmount, playerBalance, aiBalance, difficulty, testRegularGame.ai, aiDecision)
+        returnedVar = gameClass.Game.tie(
+            playerName,
+            betAmount,
+            playerBalance,
+            aiBalance,
+            difficulty,
+            testRegularGame.ai,
+            aiDecision,
+        )
         self.assertEqual(testVar, returnedVar)
 
     def testTieSurrend(self):
@@ -150,18 +203,25 @@ class testRegularGame(unittest.TestCase):
         aiDecision = 5
 
         testVar = (75.0, 475.0, "Draw", 0)
-        returnedVar = gameClass.Game.tie(playerName, betAmount, playerBalance, aiBalance, difficulty, testRegularGame.ai, aiDecision)
+        returnedVar = gameClass.Game.tie(
+            playerName,
+            betAmount,
+            playerBalance,
+            aiBalance,
+            difficulty,
+            testRegularGame.ai,
+            aiDecision,
+        )
         self.assertEqual(testVar, returnedVar)
-    
 
     """startGameAgain tests"""
+
     def testStartGameAgainYes(self):
         testVar = "New Game selected!"
         returnedVar = gameClass.Game.startGameAgain()
         self.assertEqual(testVar, returnedVar)
-    
+
     def testStartGameAgainNo(self):
         testVar = "No New Game!"
         returnedVar = gameClass.Game.startGameAgain()
         self.assertEqual(testVar, returnedVar)
-        

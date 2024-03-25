@@ -1,8 +1,10 @@
 import sys
+
 sys.path.append(".")
 from Players.Player import Player
 
 import unittest
+
 
 class TestPlayer(unittest.TestCase):
 

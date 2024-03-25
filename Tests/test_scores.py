@@ -1,9 +1,11 @@
 import sys
+
 sys.path.append(".")
 from GameMechanics.Scores import Scores
 from Players.Player import Player
 
 import unittest
+
 
 class TestScores(unittest.TestCase):
 
@@ -49,7 +51,6 @@ class TestScores(unittest.TestCase):
         """Test the update_player_balance() method from the Scores class"""
         scores = Scores()
 
-        
         scores.add_player(Player("player1", 1000))
         scores.update_player_balance(Player("player1", 1000), 500)
 
@@ -88,7 +89,3 @@ class TestScores(unittest.TestCase):
         res = scores.get_names()
         exp = ["player1", "player2"]
         self.assertEqual(res, exp)
-
-        
-
-

@@ -1,11 +1,13 @@
 import random
 import sys
+
 sys.path.append(".")
 from CardMechanics import Card as cardClass
 
-class Deck(cardClass.Card):
 
+class Deck(cardClass.Card):
     """Initialize Deck object"""
+
     def __init__(self, card):
         self.deck = {}
         self.shuffledDeck = {}
@@ -13,8 +15,8 @@ class Deck(cardClass.Card):
         self.cards = card.cards
         self.suits = card.suits
 
-
     """Create deck"""
+
     def createDeck(self):
         for cardName, cardValue in self.cards.items():
             for suit in self.suits:
@@ -22,6 +24,7 @@ class Deck(cardClass.Card):
         return self.deck
 
     """Shuffle deck"""
+
     def shuffleDeck(self):
         deck = self.createDeck()
         listDeck = list(deck.items())
@@ -34,5 +37,3 @@ class Deck(cardClass.Card):
         for x in range(3):
             currentDeck.popitem()
         return currentDeck
-
-    
