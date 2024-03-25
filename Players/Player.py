@@ -2,6 +2,7 @@ import sys
 
 sys.path.append(".")
 
+
 class Player:
     """
     Player has a name and a balance
@@ -19,7 +20,10 @@ class Player:
 
     def __eq__(self, other):
         if isinstance(other, Player):
-            return self.nickname == other.nickname and self.balance == other.balance
+            return (
+                self.nickname == other.nickname
+                and self.balance == other.balance
+            )
         return False
 
     def update_balance(self, new_balance):

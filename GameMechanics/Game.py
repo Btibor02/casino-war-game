@@ -1,3 +1,5 @@
+"""GameMechanics -> Game."""
+
 import sys
 import time
 
@@ -14,8 +16,9 @@ from Players import Player as playerClass
 
 sys.path.append(".")
 
+
 class Game:
-    """Creates a deck with shuffled cards"""
+    """Create a deck with shuffled cards."""
 
     cards = cardClass.Card()
     deck = deckClass.Deck(cards)
@@ -29,7 +32,7 @@ class Game:
     scores.update()
 
     def regularGame():
-        """Prints out Main menu"""
+        """Print out Main menu."""
         Game.gameGoing = True
         menuResults = uiClass.Menu.callMenu()
         if menuResults:
@@ -38,7 +41,7 @@ class Game:
         else:
             return "Player quit!"
 
-        """Creates player and AI object"""
+        """Create player and AI object."""
         player = playerClass.Player(playerName)
         playerBalance = player.get_balance()
         Game.scores.add_player(player)
@@ -53,8 +56,10 @@ class Game:
             if betAmount == 0:
                 Game.gameGoing = False
             else:
-                """Checks if there are enough card left in deck"""
-                enoughCards = Game.cardHand.enoughCardsInDeck(Game.shuffledDeck)
+                """Check if there are enough card left in deck."""
+                enoughCards = Game.cardHand.enoughCardsInDeck(
+                    Game.shuffledDeck
+                )
                 if enoughCards:
                     """Draws a card for both the player and ai"""
                     draws = Game.cardHand.drawCard(Game.shuffledDeck)
@@ -62,8 +67,8 @@ class Game:
                     aiHand = draws[1]
                     Game.shuffledDeck = draws[2]
 
-                    """Calls 'whosCardIsHigher' method and returned values
-                    gets assigned to variables"""
+                    """Call 'whosCardIsHigher' method and returned values
+                    gets assigned to variables."""
                     results = Game.whosCardIsHigher(
                         playerName,
                         playerHand,
@@ -83,33 +88,37 @@ class Game:
                     # update the score of the player
                     Game.scores.update_player_balance(player, playerBalance)
 
-                    """Prints out table"""
+                    """Print out table."""
                     uiClass.TableUI.table(
-                        playerName, playerHand, aiHand, playerBalance, aiBalance
+                        playerName,
+                        playerHand,
+                        aiHand,
+                        playerBalance,
+                        aiBalance,
                     )
 
-                    """If the outcome is not a tie, writes out who won"""
+                    """If the outcome is not a tie, write out who won."""
                     if indicator != "Draw":
                         uiClass.midGameVisuals.winIndecator(indicator)
 
-                    """If the outcome is a tie, writes out ai's decision"""
+                    """If the outcome is a tie, write out ai's decision."""
                     if aiDecision != 3:
                         uiClass.midGameVisuals.aiAction(aiDecision)
                 else:
-                    """No card left in the deck"""
+                    """No card left in the deck."""
                     Game.gameGoing = False
                     uiClass.EndGameUI.noCardsLeft(playerBalance)
                     Game.startGameAgain()
 
-            """Game ending scenarios"""
+            """Game ending scenarios."""
             if playerBalance <= 0:
-                """Player lost all of its balance"""
+                """Player lost all of its balance."""
                 Game.gameGoing = False
                 uiClass.EndGameUI.zeroBalance()
                 Game.startGameAgain()
 
             elif aiBalance <= 0:
-                """Ai lost all of its balance"""
+                """Ai lost all of its balance."""
                 Game.gameGoing = False
                 uiClass.EndGameUI.aiZeroBalance()
 
@@ -122,15 +131,12 @@ class Game:
         menuResults = uiClass.Menu.callMenu()
         return "regularGame works!"
 
-    """Check if AI has enough balance"""
-
     def aiHasEnoughBalance(betAmount, aiBalance):
+        """Check if AI has enough balance."""
         allInCheck = betClass.Bet.goAllIn(Game.bet, aiBalance, betAmount)
         aiBetAmount = allInCheck[0]
 
         return aiBetAmount
-
-    """Decides who won the round"""
 
     def whosCardIsHigher(
         playerName,
@@ -143,21 +149,24 @@ class Game:
         ai,
         aiDecision,
     ):
+        """Decide who won the round."""
         indicator = True
-        uiClass.TableUI.table(playerName, playerHand, aiHand, playerBalance, aiBalance)
+        uiClass.TableUI.table(
+            playerName, playerHand, aiHand, playerBalance, aiBalance
+        )
 
         aiBetAmount = Game.aiHasEnoughBalance(betAmount, aiBalance)
 
-        """Round outcomes"""
+        """Round outcomes."""
         if playerHand[1] > aiHand[1]:
-            """Player won"""
+            """Player won."""
             playerBalance = Game.bet.cardHigher(playerBalance, betAmount)
             aiBalance = Game.bet.cardLower(aiBalance, aiBetAmount)
 
             return playerBalance, aiBalance, indicator, aiDecision
 
         elif aiHand[1] > playerHand[1]:
-            """Ai won"""
+            """Ai won."""
             indicator = False
             playerBalance = Game.bet.cardLower(playerBalance, betAmount)
             aiBalance = Game.bet.cardHigher(aiBalance, aiBetAmount)
@@ -165,10 +174,12 @@ class Game:
             return playerBalance, aiBalance, indicator, aiDecision
 
         elif playerHand[1] == aiHand[1]:
-            """Checks if there are enough cards for a war"""
-            enoughCardsForWar = Game.cardHand.enoughCardsInDeckWar(Game.shuffledDeck)
+            """Check if there are enough cards for a war."""
+            enoughCardsForWar = Game.cardHand.enoughCardsInDeckWar(
+                Game.shuffledDeck
+            )
             if enoughCardsForWar:
-                """Its a tie, 'tie' method gets called"""
+                """Its a tie, 'tie' method gets called."""
                 results = Game.tie(
                     playerName,
                     betAmount,
@@ -181,38 +192,58 @@ class Game:
 
                 return results
             else:
-                print("Not enough cards left in deck to initiate war! Bets refunded")
+                print(
+                    "Not enough cards left in deck to initiate war!" +
+                    " Bets refunded"
+                )
                 time.sleep(5)
                 indicator = "Draw"
-                return int(playerBalance), int(aiBalance), indicator, aiDecision
+                return (
+                    int(playerBalance),
+                    int(aiBalance),
+                    indicator,
+                    aiDecision,
+                )
 
-    """Checks wether the player or the AI would like to go to war"""
-
-    def tie(playerName, betAmount, playerBalance, aiBalance, difficulty, ai, aiChoice):
+    def tie(
+        playerName,
+        betAmount,
+        playerBalance,
+        aiBalance,
+        difficulty,
+        ai,
+        aiChoice,
+    ):
+        """Check wether the player or the AI would like to go to war."""
         shuffledDeck = Game.shuffledDeck
         choice = uiClass.BetUI.war()
         testWin = False
 
-        """Checks if player has enough balance to go to war"""
+        """Check if player has enough balance to go to war."""
         if choice.upper() == "WAR":
             hasEnoughBalance = betClass.Bet.enoughBalance(
                 Game.bet, betAmount * 2, playerBalance
             )
             if not hasEnoughBalance:
-                print("You don't have enough balance to go to war! You must surrend!")
+                print(
+                    "You don't have enough balance to go to war!" +
+                    " You must surrend!"
+                )
                 time.sleep(5)
                 choice = "SURREND"
 
-        """Checks if AI has enough balance to go to war"""
+        """Check if AI has enough balance to go to war."""
         aiHasEnoughBalance = betClass.Bet.enoughBalance(
             Game.bet, betAmount * 2, aiBalance
         )
         if not aiHasEnoughBalance:
-            print("AI doesn't have enough balance to go to war! It must surrend!")
+            print(
+                "AI doesn't have enough balance to go to war! It must surrend!"
+            )
             time.sleep(5)
             aiChoice = True
         else:
-            """AI decision based on the selected difficulty"""
+            """AI decision based on the selected difficulty."""
             if difficulty == "Easy" and aiChoice not in (4, 5, 7):
                 aiChoice = intellClass.Intelligence.decideSurrenderEasyMode(ai)
             elif difficulty == "Normal" and aiChoice not in (4, 5, 7):
@@ -230,11 +261,11 @@ class Game:
 
         aiBetAmount = Game.aiHasEnoughBalance(betAmount, aiBalance)
 
-        """Outcomes"""
+        """Outcomes."""
         if choice.upper() == "WAR":
-            """Player chose to go to war"""
+            """Player chose to go to war."""
             if aiChoice is False:
-                """AI chose to go to war"""
+                """AI chose to go to war."""
                 aiDecision = 0
                 betAmount = Game.bet.war(betAmount)
                 shuffledDeck = Game.deck.burnCard(shuffledDeck)
@@ -270,7 +301,7 @@ class Game:
                 indicator = results[2]
 
             elif aiChoice:
-                """AI chose to surrend"""
+                """AI chose to surrend."""
                 aiDecision = 1
                 playerBalance += betAmount * 1.5
                 aiBalance = Game.bet.surrend(aiBalance, aiBetAmount)
@@ -280,16 +311,16 @@ class Game:
             return playerBalance, aiBalance, indicator, aiDecision
 
         elif choice.upper() == "SURREND":
-            """Player chose to surrend"""
+            """Player chose to surrend."""
             if aiChoice is False:
-                """AI chose to go to war"""
+                """AI chose to go to war."""
                 aiDecision = 0
                 aiBalance += aiBetAmount * 1.5
                 playerBalance = Game.bet.surrend(playerBalance, betAmount)
                 indicator = "Draw"
 
             else:
-                """AI chose to surrend"""
+                """AI chose to surrend."""
                 aiDecision = 1
                 playerBalance = Game.bet.surrend(playerBalance, betAmount)
                 aiBalance = Game.bet.surrend(aiBalance, aiBetAmount)
@@ -298,9 +329,8 @@ class Game:
             Game.shuffledDeck = shuffledDeck
             return playerBalance, aiBalance, indicator, aiDecision
 
-    """Start the game again from the beginning"""
-
     def startGameAgain():
+        """Start the game again from the beginning."""
         # save scores to cache (object serialization)
         Game.scores.save()
         Game.gameGoing = False

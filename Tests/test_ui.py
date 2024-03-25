@@ -159,7 +159,9 @@ class TestTableUi(unittest.TestCase):
         playerBalance = 550
         aiBalance = 450
 
-        uiClass.TableUI.table(playerName, playerHand, aiHand, playerBalance, aiBalance)
+        uiClass.TableUI.table(
+            playerName, playerHand, aiHand, playerBalance, aiBalance
+        )
         self.assertEqual(
             mock_print.mock_calls,
             [
@@ -167,10 +169,14 @@ class TestTableUi(unittest.TestCase):
                 call(f'{"*"} {"AI’s balance: %d" % (aiBalance) :^73} {"*"}'),
                 call(f'{"*"} {"AI’s hand: %s" % (aiHand[0]) :^73} {"*"}'),
                 call(f'{"*"} {".------." :^73} {"*"}'),
-                call(f'{"*"} {"|%s.--. |" % (aiHand[0].split(" ")[0][0]) :^73} {"*"}'),
+                call(
+                    f'{"*"} {"|%s.--. |" % (aiHand[0].split(" ")[0][0]) :^73} {"*"}'
+                ),
                 call(f'{"*"} {"| :(): |":^73} {"*"}'),
                 call(f'{"*"} {"| ()() |":^73} {"*"}'),
-                call(f'{"*"} {"| `--’%s|" % (aiHand[0].split(" ")[0][0]) :^73} {"*"}'),
+                call(
+                    f'{"*"} {"| `--’%s|" % (aiHand[0].split(" ")[0][0]) :^73} {"*"}'
+                ),
                 call(f'{"*"} {"`------’":^73} {"*"}'),
                 call(f'{"*"} {"":^73} {"*"}'),
                 call(f'{"*"} {"":^73} {"*"}'),
@@ -228,7 +234,9 @@ class TestEndGameUi(unittest.TestCase):
             mock_print.mock_calls,
             [
                 call(TestMenuUi.logo),
-                call(f'{"You lost all your money. Better luck next time!":.^77}'),
+                call(
+                    f'{"You lost all your money. Better luck next time!":.^77}'
+                ),
             ],
         )
 
@@ -239,7 +247,9 @@ class TestEndGameUi(unittest.TestCase):
             mock_print.mock_calls,
             [
                 call(TestMenuUi.logo),
-                call(f'{"You lost all your money. Better luck next time!":.^77}'),
+                call(
+                    f'{"You lost all your money. Better luck next time!":.^77}'
+                ),
             ],
         )
 
@@ -274,13 +284,17 @@ class TestMidGameVisulas(unittest.TestCase):
     def testAiDecisionSurrend(self, mock_print):
         aiDecision = True
         uiClass.midGameVisuals.aiAction(aiDecision)
-        self.assertEqual(mock_print.mock_calls, [call("Ai decided to surrend")])
+        self.assertEqual(
+            mock_print.mock_calls, [call("Ai decided to surrend")]
+        )
 
     @patch("builtins.print")
     def testAiDecisionNotSurrend(self, mock_print):
         aiDecision = False
         uiClass.midGameVisuals.aiAction(aiDecision)
-        self.assertEqual(mock_print.mock_calls, [call("Ai decided not to surrend")])
+        self.assertEqual(
+            mock_print.mock_calls, [call("Ai decided not to surrend")]
+        )
 
     @patch("builtins.print")
     def testWinIndicatorWin(self, mock_print):

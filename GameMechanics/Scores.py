@@ -6,6 +6,7 @@ from Players.Player import Player
 
 sys.path.append(".")
 
+
 class Scores:
     """
     Keeps track of all the players
@@ -25,7 +26,10 @@ class Scores:
         """returns a string containg the name and the score of each player"""
         # use Player's __str__ method
         return "\n".join(
-            [f"{i+1}. {str(self.leaderboard[i])}" for i in range(len(self.leaderboard))]
+            [
+                f"{i+1}. {str(self.leaderboard[i])}"
+                for i in range(len(self.leaderboard))
+            ]
         )
 
     def __eq__(self, other):

@@ -151,7 +151,8 @@ class BetUI:
                 """Checks if the user has enough balance for the bet"""
 
                 userInput = input(
-                    f'\n{"How much would you like to bet? (0 - Quit)" + 
+                    f'\n{"How much would you like to bet?" +
+                         " (0 - Quit)" + 
                          " (Current ammount: %d):  " % balance}'
                 )
 
