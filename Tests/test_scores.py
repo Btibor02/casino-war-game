@@ -1,16 +1,19 @@
-import sys
+"""Tests -> test_scores."""
 
-sys.path.append(".")
+import sys
+import unittest
+
 from GameMechanics.Scores import Scores
 from Players.Player import Player
 
-import unittest
+sys.path.append(".")
 
 
 class TestScores(unittest.TestCase):
+    """TestScores class."""
 
     def test_init_default_object(self):
-        """Test the add_player() method from the Scores class"""
+        """Test the add_player() method from the Scores class."""
         scores = Scores()
 
         res = scores
@@ -18,15 +21,15 @@ class TestScores(unittest.TestCase):
         self.assertIsInstance(res, exp)
 
     def test_str_method(self):
-        """Test the __str__() method from the Scores class"""
+        """Test the __str__() method from the Scores class."""
         scores = Scores()
 
         res = str(scores)
-        exp = f""
+        exp = f""  # noqa: F541
         self.assertEqual(res, exp)
 
     def test_add_player(self):
-        """Test the add_player() method from the Scores class"""
+        """Test the add_player() method from the Scores class."""
         scores = Scores()
 
         # adding one player
@@ -48,7 +51,7 @@ class TestScores(unittest.TestCase):
         self.assertEqual(res, exp)
 
     def test_update_player_balance(self):
-        """Test the update_player_balance() method from the Scores class"""
+        """Test the update_player_balance() method from the Scores class."""
         scores = Scores()
 
         scores.add_player(Player("player1", 1000))
@@ -59,7 +62,7 @@ class TestScores(unittest.TestCase):
         self.assertEqual(res, exp)
 
     def test_equal_method(self):
-        """Test the __eq__() method from the Scores class"""
+        """Test the __eq__() method from the Scores class."""
         scores = Scores()
 
         # when the objects are the same
@@ -82,6 +85,7 @@ class TestScores(unittest.TestCase):
         self.assertEqual(res, exp)
 
     def test_get_names(self):
+        """Test the get_names method."""
         scores = Scores()
         scores.add_player(Player("player1"))
         scores.add_player(Player("player2"))

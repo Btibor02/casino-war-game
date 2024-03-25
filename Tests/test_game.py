@@ -1,15 +1,20 @@
+# flake8: noqa
+
+"""Tests -> test_game."""
+
 import sys
 
-sys.path.append(".")
 import unittest
 import unittest.mock
-from unittest.mock import patch, call
 from GameMechanics import Game as gameClass
 from CardMechanics import Card, Deck
 from Players import Intelligence as intellClass
 
+sys.path.append(".")
 
-"""Guide TestGame:
+
+"""Guide TestGame.:
+
 1. 1
 2. Test
 3. 1
@@ -23,23 +28,29 @@ from Players import Intelligence as intellClass
 11. War
 12. Surrend
 13. War
-14. War"""
+14. War
+"""
 
 
 class testRegularGame(unittest.TestCase):
+    """testRegularGame class."""
+
     card = Card.Card()
     deck = Deck.Deck(card)
     ai = intellClass.Intelligence(deck.shuffleDeck, 400)
 
     def testRegularGame(self):
+        """Test RegularGame."""
         testVar = "regularGame works!"
         returnedVar = gameClass.Game.regularGame()
 
         self.assertEqual(testVar, returnedVar)
 
-    """aiHasEnoughBalance Tests"""
-
     def testAiHasEnoughBalanceYes(self):
+        """Test aiHasEnoughBalance.
+        
+        Check if true.
+        """
         betAmount = 50
         aiBalance = 100
 
@@ -48,6 +59,10 @@ class testRegularGame(unittest.TestCase):
         self.assertEqual(testVar, returnedVar)
 
     def testAiHasEnoughBalanceNo(self):
+        """Test aiHasEnoughBalance.
+        
+        Check if false.
+        """
         betAmount = 50
         aiBalance = 10
 
@@ -55,9 +70,11 @@ class testRegularGame(unittest.TestCase):
         returnedVar = gameClass.Game.aiHasEnoughBalance(betAmount, aiBalance)
         self.assertEqual(testVar, returnedVar)
 
-    """whosCardIsHigher Tests"""
-
     def testWhosCardIsHigherPlayerWins(self):
+        """Test whosCardIsHigher.
+        
+        Player wins.
+        """
         playerName = "Test"
         playerHand = ("9 of Diamonds", 9)
         aiHand = ("6 of Clubs", 6)
@@ -83,6 +100,10 @@ class testRegularGame(unittest.TestCase):
         self.assertEqual(testVar, returnedVar)
 
     def testWhosCardIsHigherAiWins(self):
+        """Test whosCardIsHigher.
+        
+        Ai wins.
+        """
         playerName = "Test"
         playerHand = ("2 of Diamonds", 2)
         aiHand = ("6 of Clubs", 6)
@@ -108,6 +129,10 @@ class testRegularGame(unittest.TestCase):
         self.assertEqual(testVar, returnedVar)
 
     def testWhosCardIsHigherTie(self):
+        """Test whosCardIsHigher.
+        
+        Tie.
+        """
         playerName = "Test"
         playerHand = ("2 of Diamonds", 2)
         aiHand = ("2 of Clubs", 2)
@@ -132,9 +157,11 @@ class testRegularGame(unittest.TestCase):
 
         self.assertEqual(testVar, returnedVar)
 
-    """tie Tests"""
-
     def testTiePlayerNotEnoughBalance(self):
+        """Test tie.
+        
+        Player has not enough balance.
+        """
         playerName = "Test"
         playerBalance = 40
         aiBalance = 400
@@ -155,6 +182,10 @@ class testRegularGame(unittest.TestCase):
         self.assertEqual(testVar, returnedVar)
 
     def testTieAiNotEnoughBalance(self):
+        """Test tie.
+        
+        Ai has not enough balance.
+        """
         playerName = "Test"
         playerBalance = 100
         aiBalance = 40
@@ -175,6 +206,10 @@ class testRegularGame(unittest.TestCase):
         self.assertEqual(testVar, returnedVar)
 
     def testTieWar(self):
+        """Test tie.
+        
+        Tie occur.
+        """
         playerName = "Test"
         playerBalance = 100
         aiBalance = 400
@@ -195,6 +230,10 @@ class testRegularGame(unittest.TestCase):
         self.assertEqual(testVar, returnedVar)
 
     def testTieSurrend(self):
+        """Test tie.
+        
+        Surrend.
+        """
         playerName = "Test"
         playerBalance = 100
         aiBalance = 400
@@ -214,14 +253,20 @@ class testRegularGame(unittest.TestCase):
         )
         self.assertEqual(testVar, returnedVar)
 
-    """startGameAgain tests"""
-
     def testStartGameAgainYes(self):
+        """Test startGameAgain.
+        
+        Yes.
+        """
         testVar = "New Game selected!"
         returnedVar = gameClass.Game.startGameAgain()
         self.assertEqual(testVar, returnedVar)
 
     def testStartGameAgainNo(self):
+        """Test startGameAgain.
+        
+        No.
+        """
         testVar = "No New Game!"
         returnedVar = gameClass.Game.startGameAgain()
         self.assertEqual(testVar, returnedVar)
