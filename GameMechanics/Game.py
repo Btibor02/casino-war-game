@@ -1,6 +1,5 @@
-import sys, time
-
-sys.path.append(".")
+import sys
+import time
 
 from CardMechanics import Card as cardClass
 from CardMechanics import Deck as deckClass
@@ -13,6 +12,7 @@ from GameMechanics import UI as uiClass
 from Players import Intelligence as intellClass
 from Players import Player as playerClass
 
+sys.path.append(".")
 
 class Game:
     """Creates a deck with shuffled cards"""
@@ -62,7 +62,8 @@ class Game:
                     aiHand = draws[1]
                     Game.shuffledDeck = draws[2]
 
-                    """Calls 'whosCardIsHigher' method and returned values gets assigned to variables"""
+                    """Calls 'whosCardIsHigher' method and returned values
+                    gets assigned to variables"""
                     results = Game.whosCardIsHigher(
                         playerName,
                         playerHand,
@@ -232,7 +233,7 @@ class Game:
         """Outcomes"""
         if choice.upper() == "WAR":
             """Player chose to go to war"""
-            if aiChoice == False:
+            if aiChoice is False:
                 """AI chose to go to war"""
                 aiDecision = 0
                 betAmount = Game.bet.war(betAmount)
@@ -268,7 +269,7 @@ class Game:
                 aiBalance = results[1]
                 indicator = results[2]
 
-            elif aiChoice == True:
+            elif aiChoice:
                 """AI chose to surrend"""
                 aiDecision = 1
                 playerBalance += betAmount * 1.5
@@ -280,7 +281,7 @@ class Game:
 
         elif choice.upper() == "SURREND":
             """Player chose to surrend"""
-            if aiChoice == False:
+            if aiChoice is False:
                 """AI chose to go to war"""
                 aiDecision = 0
                 aiBalance += aiBetAmount * 1.5

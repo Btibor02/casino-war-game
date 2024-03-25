@@ -2,7 +2,6 @@ import sys
 
 sys.path.append(".")
 
-
 class Bet:
 
     def cardHigher(self, currentBalance, bet):

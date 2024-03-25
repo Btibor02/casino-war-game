@@ -1,9 +1,11 @@
-import random
+"""CardMechanics -> Card."""
 
 
 class Card(object):
+    """Card class."""
+
     def __init__(self):
-        """Initialize Card object"""
+        """Initialize Card object."""
         self.cards = {
             "2": 2,
             "3": 3,
@@ -21,9 +23,10 @@ class Card(object):
         }
         self.suits = ["Diamonds", "Hearts", "Clubs", "Spades"]
 
-    # ? Do we need these?
     def getCards(self):
+        """Return the cards."""
         return self.cards
 
     def getSuits(self):
+        """Return the suits."""
         return self.suits

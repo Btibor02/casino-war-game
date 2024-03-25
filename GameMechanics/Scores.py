@@ -2,10 +2,9 @@ import pickle
 import os
 import sys
 
-sys.path.append(".")
-
 from Players.Player import Player
 
+sys.path.append(".")
 
 class Scores:
     """
@@ -19,13 +18,11 @@ class Scores:
 
     def __init__(self):
         """Initialize the Scores object with an empty leaderboard"""
-
         # stores player objects
         self.leaderboard = []
 
     def __str__(self):
         """returns a string containg the name and the score of each player"""
-
         # use Player's __str__ method
         return "\n".join(
             [f"{i+1}. {str(self.leaderboard[i])}" for i in range(len(self.leaderboard))]
@@ -54,7 +51,6 @@ class Scores:
 
     def add_player(self, player: Player):
         """add new player, update the player if he already exists"""
-
         # try to update the balance of the player
         try:
             self.update_player_balance(player, player.get_balance())
@@ -65,7 +61,6 @@ class Scores:
 
     def update_player_balance(self, player: Player, score: int):
         """updates the score of the player object and places him accordingly in the list"""
-
         # search for player in the leaderboard
         for p in self.leaderboard:
             if p == player:
@@ -84,9 +79,7 @@ class Scores:
 
     def __insert_score_ordered(self, player: Player):
         """insert the player in the leaderboard in the right order (from the largest balance to the lowest one)"""
-
         player_score = player.get_balance()
-        player_name = player.get_name()
 
         index = 0
 

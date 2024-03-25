@@ -1,13 +1,11 @@
 import sys
-
-sys.path.append(".")
+import random
 
 from CardMechanics import CardHand as cardHandClass
 from CardMechanics import Deck as deckClass
-from CardMechanics import Card as cardClass
-import random
 from collections import defaultdict
 
+sys.path.append(".")
 
 class Intelligence(cardHandClass.CardHand, deckClass.Deck):
     """Initialize Ai player object"""
@@ -22,7 +20,8 @@ class Intelligence(cardHandClass.CardHand, deckClass.Deck):
     """ Get occurrences of each rank in the deck """
 
     def getOccurrences(self, currentDeck):
-        # initiate default dictionary to provide a default value for key hat hasnt been seen before
+        # initiate default dictionary to provide a default value for key 
+        #what hasnt been seen before
         occurrences = defaultdict(int)
         # loop through the currentDeck and add one everytime the value occurs
         for card in currentDeck:
@@ -71,7 +70,8 @@ class Intelligence(cardHandClass.CardHand, deckClass.Deck):
         surrender = random.choice([True, False])
         return surrender
 
-    """ Medium difficulty mode: base surrender decision on probability of drawing higher card"""
+    """ Medium difficulty mode: base surrender decision on probability 
+    of drawing higher card"""
 
     def decideSurrenderMediumMode(self, deck):
         surrender = False
@@ -80,7 +80,8 @@ class Intelligence(cardHandClass.CardHand, deckClass.Deck):
         currentDeck = deck
         # calculate probability of a higher card: (100 - probability of a tie)/2
         higherCardProbablity = self.calculateHigherCardProbability(currentDeck)
-        # if probability of drawing higher > probability of drawing lower => surrender False, else True
+        # if probability of drawing higher > probability of drawing 
+        #lower => surrender False, else True
         if higherCardProbablity > surrenderThreshold:
             surrender = False
         else:

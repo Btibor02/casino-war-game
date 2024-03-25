@@ -1,12 +1,10 @@
 import os
 import sys
 
-sys.path.append(".")
-
-from CardMechanics import Card as cardClass
-from CardMechanics import Deck as deckClass
 from GameMechanics import Bet as betClass
 from GameMechanics import Scores as scoresClass
+
+sys.path.append(".")
 
 """Prints out Menu uis"""
 
@@ -60,19 +58,26 @@ class MenuUI:
         print("One card each is dealt to the players.")
         print("Card ranks (High -> Low): A K Q J 10 9 8 7 6 5 4 3 2")
         print(
-            "Whoever has the higher card win the wager they bet. One with a smaller card \nloses their bet."
+            "Whoever has the higher card win the wager they bet." + 
+            " One with a smaller card \nloses their bet."
         )
         print(
-            "\nA tie occurs when the players each have cards of the same rank. In a tie the \nplayers have two options: \n1. A player can surrender, in which case the player loses half the bet.\n2. A player can go to war, in which case the player must double their stake."
+            "\nA tie occurs when the players each have cards of the same rank." + 
+            " In a tie the \nplayers have two options: \n1. A player can surrender," + 
+            " in which case the player loses half the bet.\n2. A player can go to war," + 
+            " in which case the player must double their stake."
         )
         print(
-            "\nIf one of the players chose to go to war, but the other surrends, the \nplayer who chose to go to war gets 1.5x they bet back."
+            "\nIf one of the players chose to go to war, but the other surrends, the" + 
+            " \nplayer who chose to go to war gets 1.5x they bet back."
         )
         print(
-            "In a war, the computer burns three cards before dealing each of them \nan additional card and the game continues as normal."
+            "In a war, the computer burns three cards before dealing each of them" + 
+            " \nan additional card and the game continues as normal."
         )
         print(
-            "\nA player wins if the other player runs out of their balance, \nor can leave at anytime by writing '0' in the bet window. "
+            "\nA player wins if the other player runs out of their balance," + 
+            " \nor can leave at anytime by writing '0' in the bet window. "
         )
 
 
@@ -146,7 +151,8 @@ class BetUI:
                 """Checks if the user has enough balance for the bet"""
 
                 userInput = input(
-                    f'\n{"How much would you like to bet? (0 - Quit) (Current ammount: %d):  " % balance}'
+                    f'\n{"How much would you like to bet? (0 - Quit)" + 
+                         " (Current ammount: %d):  " % balance}'
                 )
 
                 # look if user typed "cheat"

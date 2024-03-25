@@ -2,7 +2,6 @@ import sys
 
 sys.path.append(".")
 
-
 class Player:
     """
     Player has a name and a balance
