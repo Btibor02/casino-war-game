@@ -1,11 +1,15 @@
+# flake8: noqa
+
+"""Ui Tests."""
+
 import sys
 
-sys.path.append(".")
 from GameMechanics import UI as uiClass
 import unittest
 import unittest.mock
 from unittest.mock import patch, call
 
+sys.path.append(".")
 
 """Guide TestUI:
 1. 50

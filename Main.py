@@ -1,7 +1,10 @@
+"""Main."""
+
 from GameMechanics import Game
 
 
 def main():
+    """Launch game."""
     Game.Game.regularGame()
 
 

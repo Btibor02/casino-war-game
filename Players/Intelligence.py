@@ -1,3 +1,5 @@
+"""Players -> Intelligence."""
+
 import sys
 import random
 
@@ -9,18 +11,19 @@ sys.path.append(".")
 
 
 class Intelligence(cardHandClass.CardHand, deckClass.Deck):
-    """Initialize Ai player object"""
+    """Intelligence class."""
 
     def __init__(self, deck, aiBalance):
+        """Initialize Ai player object."""
         self.deck = deck
         self.aiBalance = aiBalance
 
     def getAiBalance(self):
+        """Return Ai Balance."""
         return self.aiBalance
 
-    """ Get occurrences of each rank in the deck """
-
     def getOccurrences(self, currentDeck):
+        """Get occurrences of each rank in the deck."""
         # initiate default dictionary to provide a default value for key
         # what hasnt been seen before
         occurrences = defaultdict(int)
@@ -32,9 +35,8 @@ class Intelligence(cardHandClass.CardHand, deckClass.Deck):
             occurrences[rank] += 1
         return occurrences
 
-    """ Calculate probability of drawing each rank from the deck"""
-
     def calculateProbabilities(self, occurrences, currentDeck):
+        """Calculate probability of drawing each rank from the deck."""
         # get occurrences
         totalCardscurrentDeck = len(currentDeck)
         # calculate probabilities of each rank being drawn from the currentDeck
@@ -44,9 +46,8 @@ class Intelligence(cardHandClass.CardHand, deckClass.Deck):
             probabilities[rank] = countOfOccurences / totalCardscurrentDeck
         return probabilities
 
-    """ Calculate probability of a tie """
-
     def calculateTieProbability(self, currentDeck):
+        """Calculate probability of a tie."""
         # get occurrences
         occurrences = self.getOccurrences(currentDeck)
         # get probabilities of each outcome
@@ -58,30 +59,30 @@ class Intelligence(cardHandClass.CardHand, deckClass.Deck):
             tieProbability += probabilities[rank] ** 2
         return tieProbability
 
-    """ Calculate probability of drawing a higher card then the opponent """
-
     def calculateHigherCardProbability(self, currentDeck):
+        """Calculate probability of drawing a higher card then the opponent."""
         # formula: (100 - tieProbability)/2
         higherCardProbability = (
             100 - self.calculateTieProbability(currentDeck)
         ) / 2
         return higherCardProbability
 
-    """ Easy mode: randomize surrender decision"""
-
     def decideSurrenderEasyMode(self):
+        """Easy mode: randomize surrender decision."""
         surrender = random.choice([True, False])
         return surrender
 
-    """ Medium difficulty mode: base surrender decision on probability 
-    of drawing higher card"""
-
     def decideSurrenderMediumMode(self, deck):
+        """Medium difficulty mode:.
+
+        Base surrender decision on probability of drawing higher card.
+        """
         surrender = False
         surrenderThreshold = 30
         # get current deck
         currentDeck = deck
-        # calculate probability of a higher card: (100 - probability of a tie)/2
+        # calculate probability of a higher card:
+        # (100 - probability of a tie)/2
         higherCardProbablity = self.calculateHigherCardProbability(currentDeck)
         # if probability of drawing higher > probability of drawing
         # lower => surrender False, else True
